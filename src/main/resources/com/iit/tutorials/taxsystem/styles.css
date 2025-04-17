@@ -1,0 +1,118 @@
+.root {
+    -fx-background-color: #FAFAFA;
+}
+
+.label {
+    -fx-text-fill: #333333;
+    -fx-font-family: "Arial";
+}
+
+.label-header {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.text-field {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #A8E4A0;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 5;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1);
+}
+
+.button {
+    -fx-background-color: #FFC1CC;
+    -fx-text-fill: #333333;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 1);
+}
+
+.button:hover {
+    -fx-background-color: #E6E6FA;
+}
+
+.button-import {
+    -fx-background-color: #A8E4A0;
+}
+
+.button-import:hover {
+    -fx-background-color: #8CD98C;
+}
+
+.button-update {
+    -fx-background-color: #FFD700;
+}
+
+.button-update:hover {
+    -fx-background-color: #FFC107;
+}
+
+.button-delete {
+    -fx-background-color: #FF9999;
+}
+
+.button-delete:hover {
+    -fx-background-color: #FF6666;
+}
+
+.button-tax {
+    -fx-background-color: #ADD8E6;
+}
+
+.button-tax:hover {
+    -fx-background-color: #87CEEB;
+}
+
+.button-exit {
+    -fx-background-color: #FF6347;
+}
+
+.button-exit:hover {
+    -fx-background-color: #FF4500;
+}
+
+.table-view {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #A8E4A0;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1);
+}
+
+.table-view .column-header {
+    -fx-background-color: #A8E4A0;
+    -fx-text-fill: #333333;
+    -fx-font-weight: bold;
+}
+
+.table-row-cell:filled:valid {
+    -fx-background-color: #E6FFE6;
+}
+
+.table-row-cell:filled:invalid {
+    -fx-background-color: #FFE6E6;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #FFC1CC;
+}
+
+.login-vbox {
+    -fx-background-color: linear-gradient(to bottom, #FFC1CC, #E6E6FA);
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #A8E4A0;
+    -fx-border-width: 2;
+}
+
+.error-label {
+    -fx-text-fill: #FF3333;
+    -fx-font-size: 12px;
+}

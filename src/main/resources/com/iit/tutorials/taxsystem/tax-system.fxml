@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<?import java.net.URL?>
+<VBox alignment="CENTER" prefHeight="615.0" prefWidth="827.0" spacing="20.0" styleClass="root" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iit.tutorials.taxsystem.TaxSystemController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <stylesheets>
+        <URL value="@styles.css" />
+    </stylesheets>
+
+    <Label styleClass="label-header" text="DM SugarCraft Transaction Records" />
+
+    <TableView fx:id="transactionTable" prefHeight="350.0" prefWidth="780.0" styleClass="table-view">
+        <columns>
+            <TableColumn fx:id="itemCodeCol" minWidth="100.0" prefWidth="100.0" text="Item Code" />
+            <TableColumn fx:id="internalPriceCol" minWidth="100.0" prefWidth="110.0" text="Internal Price" />
+            <TableColumn fx:id="discountCol" minWidth="100.0" prefWidth="100.0" text="Discount" />
+            <TableColumn fx:id="salePriceCol" minWidth="100.0" prefWidth="100.0" text="Sale Price" />
+            <TableColumn fx:id="quantityCol" minWidth="100.0" prefWidth="80.0" text="Quantity" />
+            <TableColumn fx:id="checksumCol" minWidth="100.0" prefWidth="80.0" text="Checksum" />
+            <TableColumn fx:id="profitCol" minWidth="100.0" prefWidth="100.0" text="Profit" />
+            <TableColumn fx:id="validCol" minWidth="80.0" prefWidth="80.0" text="Valid" />
+        </columns>
+    </TableView>
+
+    <HBox alignment="CENTER" spacing="10.0">
+        <Button text="Import Transactions" onAction="#handleImport" styleClass="button, button-import" />
+        <Button text="Update Selected" onAction="#handleUpdate" styleClass="button, button-update" />
+        <Button text="Delete Selected" onAction="#handleDelete" styleClass="button, button-delete" />
+        <Button text="Delete Zero Profit" onAction="#handleDeleteZeroProfit" styleClass="button, button-delete" />
+        <Button text="Exit" onAction="#handleExit" styleClass="button, button-exit" />
+    </HBox>
+
+    <Label fx:id="summaryLabel" styleClass="label-header" text="Total Records: 0 | Valid: 0 | Invalid: 0" />
+
+    <HBox alignment="CENTER" spacing="15.0">
+        <Label styleClass="label" text="Tax Rate (%):" />
+        <TextField fx:id="taxRateField" prefWidth="80.0" styleClass="text-field" />
+        <Button text="Calculate Final Tax" onAction="#handleCalculateTax" styleClass="button, button-tax" />
+    </HBox>
+</VBox>
