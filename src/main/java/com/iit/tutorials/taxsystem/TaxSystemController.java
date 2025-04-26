@@ -30,11 +30,10 @@ public class TaxSystemController {
     @FXML private Label summaryLabel;
     @FXML private TextField taxRateField;
 
-    private ObservableList<Transaction> transactions = FXCollections.observableArrayList();
+    ObservableList<Transaction> transactions = FXCollections.observableArrayList(); // Changed to package-private
 
     @FXML
     public void initialize() {
-        // Set up table columns
         itemCodeCol.setCellValueFactory(new PropertyValueFactory<>("itemCode"));
         internalPriceCol.setCellValueFactory(new PropertyValueFactory<>("internalPrice"));
         discountCol.setCellValueFactory(new PropertyValueFactory<>("discount"));
@@ -71,20 +70,19 @@ public class TaxSystemController {
     private List<Transaction> importCSV(File file) throws IOException {
         List<Transaction> result = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            // Skip header row
-            reader.readLine();
+            reader.readLine(); // Skip header row
 
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts.length >= 6) {
                     Transaction t = new Transaction(
-                            parts[0], // itemCode
-                            Double.parseDouble(parts[1]), // internalPrice
-                            Double.parseDouble(parts[2]), // discount
-                            Double.parseDouble(parts[3]), // salePrice
-                            Integer.parseInt(parts[4]), // quantity
-                            Integer.parseInt(parts[5])  // checksum
+                            parts[0],
+                            Double.parseDouble(parts[1]),
+                            Double.parseDouble(parts[2]),
+                            Double.parseDouble(parts[3]),
+                            Integer.parseInt(parts[4]),
+                            Integer.parseInt(parts[5])
                     );
                     result.add(t);
                 }
@@ -93,7 +91,7 @@ public class TaxSystemController {
         return result;
     }
 
-    private void validateTransactions() {
+    void validateTransactions() { // Changed to package-private
         for (Transaction t : transactions) {
             int calculatedChecksum = calculateChecksum(t);
             boolean checksumValid = calculatedChecksum == t.getChecksum();
@@ -103,8 +101,7 @@ public class TaxSystemController {
         }
     }
 
-    private int calculateChecksum(Transaction t) {
-        // Match Python's format: item_code,internal_price,discount,sale_price,quantity
+    int calculateChecksum(Transaction t) { // Changed to package-private
         String line = String.format("%s,%s,%s,%s,%d",
                 t.getItemCode(),
                 String.valueOf(t.getInternalPrice()),
@@ -122,7 +119,7 @@ public class TaxSystemController {
         return upper + lower + digits;
     }
 
-    private void calculateProfits() {
+    void calculateProfits() { // Changed to package-private
         for (Transaction t : transactions) {
             double profit = ((t.getSalePrice() * t.getQuantity()) - (t.getDiscount() * t.getQuantity())) -
                     (t.getInternalPrice() * t.getQuantity());
@@ -138,16 +135,13 @@ public class TaxSystemController {
             return;
         }
 
-        // Create a dialog for editing
         Dialog<Transaction> dialog = new Dialog<>();
         dialog.setTitle("Edit Transaction");
-        dialog.setHeaderText("Update transaction details for DM Sugar Crafts");
+        dialog.setHeaderText("Update transaction details for DM SugarCraft");
 
-        // Set buttons
         ButtonType saveButtonType = new ButtonType("Save", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(saveButtonType, ButtonType.CANCEL);
 
-        // Create input fields
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
@@ -175,11 +169,9 @@ public class TaxSystemController {
 
         dialog.getDialogPane().setContent(grid);
 
-        // Enable Save button only if inputs are valid
         Button saveButton = (Button) dialog.getDialogPane().lookupButton(saveButtonType);
         saveButton.setDisable(true);
 
-        // Validate inputs in real-time
         itemCodeField.textProperty().addListener((obs, old, newValue) -> {
             try {
                 double ip = Double.parseDouble(internalPriceField.getText());
@@ -236,7 +228,6 @@ public class TaxSystemController {
             }
         });
 
-        // Handle Save
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == saveButtonType) {
                 try {
@@ -246,7 +237,6 @@ public class TaxSystemController {
                     double salePrice = Double.parseDouble(salePriceField.getText());
                     int quantity = Integer.parseInt(quantityField.getText());
 
-                    // Create temporary transaction to calculate checksum
                     Transaction temp = new Transaction(itemCode, internalPrice, discount, salePrice, quantity, 0);
                     int newChecksum = calculateChecksum(temp);
 
@@ -259,7 +249,6 @@ public class TaxSystemController {
             return null;
         });
 
-        // Show dialog and update transaction
         dialog.showAndWait().ifPresent(newTransaction -> {
             selected.setItemCode(newTransaction.getItemCode());
             selected.setInternalPrice(newTransaction.getInternalPrice());
@@ -268,7 +257,6 @@ public class TaxSystemController {
             selected.setQuantity(newTransaction.getQuantity());
             selected.setChecksum(newTransaction.getChecksum());
 
-            // Recalculate profit and validity
             double profit = ((selected.getSalePrice() * selected.getQuantity()) -
                     (selected.getDiscount() * selected.getQuantity())) -
                     (selected.getInternalPrice() * selected.getQuantity());
